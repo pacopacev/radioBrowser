@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🤘 DDR 🤘</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:
+        radial-gradient(circle at 18% 15%, rgba(34, 197, 94, 0.22), transparent 30%),
+        radial-gradient(circle at 82% 85%, rgba(132, 204, 22, 0.16), transparent 35%),
+        conic-gradient(from 210deg at 50% 50%, #020706, #071b12, #153b1c, #050a08, #0b2815, #020706);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    
+    .card {
+      background: rgba(7, 20, 13, 0.88);
+      border: 1px solid rgba(134, 239, 172, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 3rem 4rem;
+      box-shadow: 0 25px 55px -12px rgba(0,0,0,0.75), 0 0 45px rgba(34, 197, 94, 0.12);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 30px 65px -12px rgba(0,0,0,0.85), 0 0 55px rgba(34, 197, 94, 0.2);
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #f0fdf4;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .highlight {
+      background: linear-gradient(135deg, #f0fdf4 10%, #86efac 50%, #22c55e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: #bbf7d0;
+      font-size: 1.0rem;
+      line-height: 1.6;
+      margin: 0.5rem 0 1.0rem;
+    }
+    .radioBrowserLink {
+      color: #dcfce7;
+
+
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(20, 83, 45, 0.75);
+      border: 1px solid rgba(134, 239, 172, 0.35);
+      color: #dcfce7;
+      font-weight: 600;
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* Buttons */
+    .links {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .dropdown-label {
+      color: #dcfce7;
+      font-weight: 600;
+      text-align: left;
+    }
+    .dropdown {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 2px solid rgba(134, 239, 172, 0.35);
+      border-radius: 0.8rem;
+      background: rgba(2, 12, 7, 0.9);
+      color: #f0fdf4;
+      font: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .dropdown:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    .btn {
+      display: block;
+      padding: 0.9rem 1.2rem;
+      background: #46e546;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 0.8rem;
+      transition: 0.2s ease;
+    }
+    .btn:hover {
+      background: #3a3665;
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #86efac;
+      border-top: 1px solid rgba(134, 239, 172, 0.18);
+      padding-top: 1.5rem;
+    }
+    .footer span {
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1><span class="highlight">DD Radio</span></h1>
+    
+    <p>This page is inpired by RadioBrowser.</p>
+    <p class="radioBrowserLink" href="https://www.radio-browser.info/"> https://www.radio-browser.info/ </p>
+    <br>
+    <div class="badge">&#127929 pure HTML + CSS + Express</div>
+
+    <div class="links">
+      <label class="dropdown-label" for="radio-options">Choose a server</label>
+      <select class="dropdown" id="radio-options" name="radio-options">
+        <option value="test">Test</option>
+        <option value="test2">Test 2</option>
+        <option value="test3">Test 3</option>
+      </select>
+      <label class="dropdown-label" for="radio-options">Choose a genre</label>
+      <select class="dropdown" id="radio-options" name="radio-options">
+        <option value="rock">Rock</option>
+        <option value="metal">Metal</option>
+        <option value="heavy_metal">Heavy Metal</option>
+      </select>
+      <label class="dropdown-label" for="radio-options">Choose a station</label>
+      <select class="dropdown" id="radio-options" name="radio-options">
+        <option value="test">Test</option>
+        <option value="test2">Test 2</option>
+        <option value="test3">Test 3</option>
+      </select>
+      
+      <!-- <a class="btn" href="/">🏠 Home</a>
+      <a class="btn" href="/about">ℹ️ About</a>
+      <a class="btn" href="/contact">📞 Contact</a>
+      <a class="btn" href="/status">📡 API Status</a> -->
+    </div>
+
+    <div class="footer">
+      
+      <span>⚡</span> running on <span>http://127.0.0.1:3000</span>
+    </div>
+  </div>
+  
+</body>
+</html>
