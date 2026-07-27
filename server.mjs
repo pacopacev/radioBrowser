@@ -1,6 +1,12 @@
 import express from 'express';
 import { join } from 'node:path';
 import { test } from './backend/test.js'
+
+import host from './backend/host.js';
+
+
+
+
 const app = express();
 const port = 3000;
 
@@ -13,8 +19,17 @@ app.use(express.static(join(process.cwd(), 'public')));
 
 // Home page
 app.get('/', (req, res) => {
+  
   const filePath = join(process.cwd(), 'index.html');
+  
   res.sendFile(filePath);
+  
+  
+});
+
+app.get('/api/host', async (req, res) => {
+  const result = await host();   // host() is async
+  res.json({ result });
 });
 
 // About page
@@ -32,14 +47,14 @@ app.get('/status', (req, res) => {
 });
 
 app.get('/api/status', (req, res) => {
-  var t = new Date();
-  const result = test(t);
+  // var t = new Date();
+  // const result = test(t);
   
   
-  res.json({
-    status: 'ok',
-    time: result
-  });
+  // res.json({
+  //   status: 'ok',
+  //   time: result
+  // });
 });
 
 
