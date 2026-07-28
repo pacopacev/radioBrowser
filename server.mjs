@@ -71,10 +71,16 @@ app.get('/api/status', (req, res) => {
 
 
 
-app.listen(port, () => {
+const server = app.listen(port, '127.0.0.1');
+
+server.on('listening', () => {
   console.log(`Server running at http://127.0.0.1:${port}`);
 });
 
+server.on('error', (error) => {
+  console.error(`Unable to start server on 127.0.0.1:${port}: ${error.message}`);
+  process.exitCode = 1;
+});
 
 
 
