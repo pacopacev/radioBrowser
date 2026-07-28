@@ -3,13 +3,13 @@ import { join } from 'node:path';
 import { test } from './backend/test.js'
 
 import host from './backend/host.js';
-
+import getByGenre from './backend/genre.js';
 
 
 
 const app = express();
 const port = 3000;
-
+app.use(express.json());
 
 
 // Serve static files from /public
@@ -30,6 +30,17 @@ app.get('/', (req, res) => {
 app.get('/api/host', async (req, res) => {
   const result = await host();   // host() is async
   res.json({ result });
+});
+app.post('/api/genre', async (req, res) => {
+  try {
+    const { genre } = req.body;  // Get genre from request body
+    // console.log(genre);
+    const result = await getByGenre(genre);  // Await the async function
+    res.json({ result });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to fetch genre data' });
+  }
 });
 
 // About page

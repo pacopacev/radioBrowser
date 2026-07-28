@@ -17,8 +17,8 @@ async function loadHosts() {
 const res = await fetch('/api/host');
 const data = await res.json();
 
-console.log(data.result.all);
-const select = document.getElementById('radio-options');
+// console.log(data.result.all);
+const select = document.getElementById('radio-options-server');
 
   // Clear existing options
   select.innerHTML = '';

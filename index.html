@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🤘 DDR 🤘</title>
+  <title>DDR</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -131,26 +131,26 @@
   <div class="card">
     <h1><span class="highlight">DD Radio</span></h1>
     
-    <p>This page is inpired by RadioBrowser.</p>
+    <p>This page is inspired by RadioBrowser.</p>
     <p class="radioBrowserLink" href="https://www.radio-browser.info/"> https://www.radio-browser.info/ </p>
     <br>
     <div class="badge">&#127929 pure HTML + CSS + Express</div>
 
     <div class="links">
       <label class="dropdown-label" for="radio-options">Choose a server</label>
-      <select class="dropdown" id="radio-options" name="radio-options">
+      <select class="dropdown" id="radio-options-server" name="radio-options">
         <option value="test">Test</option>
         <option value="test2">Test 2</option>
         <option value="test3">Test 3</option>
       </select>
       <label class="dropdown-label" for="radio-options">Choose a genre</label>
-      <select class="dropdown" id="radio-options" name="radio-options">
+      <select class="dropdown" id="radio-options-genre" name="radio-options">
         <option value="rock">Rock</option>
         <option value="metal">Metal</option>
         <option value="heavy_metal">Heavy Metal</option>
       </select>
       <label class="dropdown-label" for="radio-options">Choose a station</label>
-      <select class="dropdown" id="radio-options" name="radio-options">
+      <select class="dropdown" id="radio-options-station" name="radio-options">
         <option value="test">Test</option>
         <option value="test2">Test 2</option>
         <option value="test3">Test 3</option>
@@ -168,5 +168,42 @@
     </div>
   </div>
   <script type="module" src="/app.js"></script>
+  <script>
+
+    const radioOtionsGenre = document.getElementById('radio-options-genre');
+console.log(radioOtionsGenre);
+radioOtionsGenre.addEventListener('change', () => {
+  // console.log(radioOtionsGenre.value);
+
+  fetch('/api/genre', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    genre: radioOtionsGenre.value
+  })
+})
+.then(res => {
+  if (!res.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return res.json();
+})
+.then(data => {
+  console.log(data);
+})
+.catch(error => console.error('Error:', error));
+})
+    // <!-- radioBrowserLink.addEventListener('click', () => {
+    //   window.open('https://www.radio-browser.info/', '_blank');
+    // }); -->
+
+
+
+
+
+
+  </script>
 </body>
 </html>
