@@ -31,11 +31,15 @@ app.get('/api/host', async (req, res) => {
   const result = await host();   // host() is async
   res.json({ result });
 });
+
 app.post('/api/genre', async (req, res) => {
   try {
-    const { genre } = req.body;  // Get genre from request body
-    // console.log(genre);
-    const result = await getByGenre(genre);  // Await the async function
+    const { server, genre } = req.body;  // Get genre from request body
+
+    // console.log('Received - Server:', server);
+    // console.log('Received - Genre:', genre);
+
+    const result = await getByGenre(server, genre);  // Await the async function
     res.json({ result });
   } catch (error) {
     console.error('Error:', error);

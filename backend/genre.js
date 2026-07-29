@@ -1,6 +1,8 @@
-export default async function getByGenre(genre) {
+export default async function getByGenre(server, genre) {
+    // console.log(server, genre);
     try {
-        const url = `http://de1.api.radio-browser.info/json/stations/bytag/${genre}`;
+const url = `${server}/json/stations/bytag/${genre}`;
+        // console.log(url);
         
         const response = await fetch(url, {
             method: 'GET',
@@ -14,6 +16,8 @@ export default async function getByGenre(genre) {
         }
         
         const data = await response.json();
+        
+        // console.log(data);
         return data;
         
     } catch (error) {

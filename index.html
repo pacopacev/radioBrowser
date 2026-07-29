@@ -123,6 +123,13 @@
     .footer span {
       font-weight: 500;
     }
+
+   select {
+  /* This works in some browsers */
+  transform: rotate(0deg);
+}
+
+
   </style>
 </head>
 <body>
@@ -139,9 +146,8 @@
     <div class="links">
       <label class="dropdown-label" for="radio-options">Choose a server</label>
       <select class="dropdown" id="radio-options-server" name="radio-options">
-        <option value="test">Test</option>
-        <option value="test2">Test 2</option>
-        <option value="test3">Test 3</option>
+        <option value=""></option>
+        
       </select>
       <label class="dropdown-label" for="radio-options">Choose a genre</label>
       <select class="dropdown" id="radio-options-genre" name="radio-options">
@@ -151,10 +157,21 @@
       </select>
       <label class="dropdown-label" for="radio-options">Choose a station</label>
       <select class="dropdown" id="radio-options-station" name="radio-options">
-        <option value="test">Test</option>
-        <option value="test2">Test 2</option>
-        <option value="test3">Test 3</option>
+        <option value=""></option>
+        
       </select>
+
+      <audio 
+  id="player" 
+  controls 
+  autoplay 
+  loop 
+  muted 
+  preload="auto"
+  volume="0.5"
+>
+  <source src="" type="audio/mpeg">
+</audio>
       
       <!-- <a class="btn" href="/">🏠 Home</a>
       <a class="btn" href="/about">ℹ️ About</a>
@@ -169,18 +186,20 @@
   </div>
   <script type="module" src="/app.js"></script>
   <script>
-
+    const radioOtionsServer = document.getElementById('radio-options-server');
     const radioOtionsGenre = document.getElementById('radio-options-genre');
-console.log(radioOtionsGenre);
+    const stationSelect = document.getElementById('radio-options-station');
+// console.log(radioOtionsGenre);
 radioOtionsGenre.addEventListener('change', () => {
   // console.log(radioOtionsGenre.value);
-
+  // window.alert(radioOtionsGenre.value);
   fetch('/api/genre', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
+    server: radioOtionsServer.value,
     genre: radioOtionsGenre.value
   })
 })
@@ -191,7 +210,27 @@ radioOtionsGenre.addEventListener('change', () => {
   return res.json();
 })
 .then(data => {
-  console.log(data);
+  const select = document.getElementById('radio-options-station');
+  select.innerHTML = '';
+
+  data.result.forEach(station => {
+    const option = document.createElement('option');
+    option.value = station.url;
+    option.textContent = station.name;
+    stationSelect.appendChild(option);
+  });
+
+  const player_element = document.getElementById('player');
+  stationSelect.addEventListener('change', (e) => {
+  const url = e.target.value;
+  if (url) {
+    player_element.src = url;
+    player_element.play();
+  }
+});
+  
+  // window.alert(data);
+  // console.log(data);
 })
 .catch(error => console.error('Error:', error));
 })
