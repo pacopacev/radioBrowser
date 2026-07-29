@@ -160,7 +160,7 @@
         <option value=""></option>
         
       </select>
-
+<image id="favicon" src=""></image>
       <audio 
   id="player" 
   controls 
@@ -210,17 +210,27 @@ radioOtionsGenre.addEventListener('change', () => {
   return res.json();
 })
 .then(data => {
+
+  console.log(data);
   const select = document.getElementById('radio-options-station');
+  const favicon_element = document.getElementById('favicon');
   select.innerHTML = '';
 
   data.result.forEach(station => {
+    station_data = {
+      name: station.name,
+      url: station.url,
+      favicon: station.favicon
+    }
     const option = document.createElement('option');
-    option.value = station.url;
-    option.textContent = station.name;
+    option.value = station_data.url;
+    option.textContent = station_data.name;
+    favicon_element.src = station_data.favicon;
     stationSelect.appendChild(option);
   });
 
   const player_element = document.getElementById('player');
+
   stationSelect.addEventListener('change', (e) => {
   const url = e.target.value;
   if (url) {
