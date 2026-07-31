@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 3000
 
 # Run with .mjs file
-CMD ["node", "server.mjs"]
+CMD ["node", "index.js"]
