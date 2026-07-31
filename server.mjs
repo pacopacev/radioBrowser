@@ -8,7 +8,7 @@ import getByGenre from './backend/genre.js';
 
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 
@@ -75,14 +75,14 @@ app.get('/api/status', (req, res) => {
 
 
 
-const server = app.listen(port, '127.0.0.1');
+const server = app.listen(PORT, '0.0.0.0');
 
 server.on('listening', () => {
-  console.log(`Server running at http://127.0.0.1:${port}`);
+  console.log(`Server running at http://0.0.0.0:${PORT}`);
 });
 
 server.on('error', (error) => {
-  console.error(`Unable to start server on 127.0.0.1:${port}: ${error.message}`);
+  console.error(`Unable to start server on 127.0.0.1:${PORT}: ${error.message}`);
   process.exitCode = 1;
 });
 
