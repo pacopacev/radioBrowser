@@ -12,8 +12,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 
-// Serve static files from /public
+// Serve static files from /public and /static
 app.use(express.static(join(process.cwd(), 'public')));
+app.use('/static', express.static(join(process.cwd(), 'static')));
 
 
 

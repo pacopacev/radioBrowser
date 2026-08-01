@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111111" />
   <title>DDR</title>
-  <link rel="icon" href="...">
+  <link rel="icon" href="/static/Distressed Metal Chevron with Chains.png" />
+  <link rel="manifest" href="/manifest.json" />
   <style>
     * {
       margin: 0;
@@ -168,7 +170,7 @@
 
   <div class="card">
     <h1><span class="highlight">Drop Down <br>
-      Radio Browser</span></h1>
+        Radio Browser</span></h1>
 
     <!-- <p>This page is inspired by RadioBrowser.</p> -->
     <a class="radioBrowserLink" href="https://www.radio-browser.info/" target="_blank" rel="noopener noreferrer">
@@ -183,8 +185,9 @@
         <option value=""></option>
 
       </select>
-      <label class="dropdown-label" for="radio-options">Choose a genre</label>
+      <label class="dropdown-label" for="radio-options">Choose a only meatal genre</label>
       <select class="dropdown" id="radio-options-genre" name="radio-options">
+        <option value=""></option>
         <option value="heavy_metal">Heavy</option>
         <option value="trash_metal">Trash</option>
         <option value="death_metal">Death</option>
@@ -195,7 +198,8 @@
       </select>
       <label class="dropdown-label" for="radio-options">Choose a station</label>
       <select class="dropdown" id="radio-options-station" name="radio-options">
-        <option value=""></option>
+        <!-- <option value=""></option> -->
+
 
       </select>
 
@@ -293,6 +297,15 @@
 
 
 
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.log('SW error', err));
+      });
+    }
   </script>
 </body>
 
