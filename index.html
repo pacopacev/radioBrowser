@@ -8,6 +8,11 @@
   <title>DDR</title>
   <link rel="icon" href="/static/Distressed Metal Chevron with Chains.png" />
   <link rel="manifest" href="/manifest.json" />
+
+  <script type="module" src="/player.js"></script>
+
+
+
   <style>
     * {
       margin: 0;
@@ -94,6 +99,8 @@
       gap: 1rem;
     }
 
+
+
     .dropdown-label {
       color: #dcfce7;
       font-weight: 600;
@@ -169,8 +176,8 @@
 
 
   <div class="card">
-    <h1><span class="highlight">Drop Down <br>
-        Radio Browser</span></h1>
+    <h2><span class="highlight">Drop Down <br>
+        Radio Browser</span></h2>
 
     <!-- <p>This page is inspired by RadioBrowser.</p> -->
     <a class="radioBrowserLink" href="https://www.radio-browser.info/" target="_blank" rel="noopener noreferrer">
@@ -188,6 +195,7 @@
       <label class="dropdown-label" for="radio-options">Choose a only meatal genre</label>
       <select class="dropdown" id="radio-options-genre" name="radio-options">
         <option value=""></option>
+        <option value="rock">Rok</option>
         <option value="heavy_metal">Heavy</option>
         <option value="trash_metal">Trash</option>
         <option value="death_metal">Death</option>
@@ -206,7 +214,6 @@
 
       <img id="favicon" class="favicon-set" src="" alt="Selected station logo"></img>
 
-
       <audio id="player" controls autoplay loop preload="auto">
         <source src="" type="audio/mpeg">
       </audio>
@@ -223,12 +230,11 @@
     </div>
   </div>
   <script type="module" src="/app.js"></script>
+
   <script>
     const radioOtionsServer = document.getElementById('radio-options-server');
     const radioOtionsGenre = document.getElementById('radio-options-genre');
     const stationSelect = document.getElementById('radio-options-station');
-    const player_element = document.getElementById('player');
-    player_element.volume = 0.5;
     const favicon_element = document.getElementById('favicon');
 
 
@@ -261,8 +267,8 @@
           data.result.forEach(station => {
             const station_data = {
               name: station.name,
-              url: station.url,
-              favicon: station.favicon
+              url: station.url_resolved || station.url || '',
+              favicon: station.favicon || ''
             }
             const option = document.createElement('option');
             option.value = station_data.url;
@@ -283,11 +289,31 @@
       favicon_element.src = "";
       const url = e.target.value;
       if (url) {
-        player_element.src = url;
-        player_element.play();
-        favicon_element.src = e.target.selectedOptions[0].dataset.favicon || '';
+        const playerInstance = window.player;
+        if (!playerInstance) {
+          console.error('Audio player is not ready yet.');
+          return;
+        }
 
+        const streamUrl = url.startsWith('http://') && window.location.protocol === 'https:'
+          ? url.replace('http://', 'https://')
+          : url;
+
+        playerInstance.pause();
+        playerInstance.src = streamUrl;
+        playerInstance.load();
+
+        const playPromise = playerInstance.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            console.warn('Playback was blocked until the user interacts with the page.');
+          });
+        }
+
+        favicon_element.src = e.target.selectedOptions[0].dataset.favicon || '';
       }
+
+
     });
 
 
@@ -307,6 +333,8 @@
       });
     }
   </script>
+
+
 </body>
 
 </html>

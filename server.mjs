@@ -35,16 +35,24 @@ app.get('/api/host', async (req, res) => {
 
 app.post('/api/genre', async (req, res) => {
   try {
-    const { server, genre } = req.body;  // Get genre from request body
+    const { server, genre } = req.body || {};
 
-    // console.log('Received - Server:', server);
-    // console.log('Received - Genre:', genre);
+    if (!server || typeof server !== 'string' || !server.startsWith('http')) {
+      return res.status(400).json({ error: 'A valid server URL is required.' });
+    }
 
-    const result = await getByGenre(server, genre);  // Await the async function
+    if (!genre || typeof genre !== 'string' || genre.trim() === '') {
+      return res.status(400).json({ error: 'A valid genre is required.' });
+    }
+
+    const result = await getByGenre(server, genre.trim());
     res.json({ result });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to fetch genre data' });
+    console.error('Error fetching genre data:', error);
+    res.status(502).json({
+      error: 'Failed to fetch genre data',
+      details: error.message || 'Unknown error'
+    });
   }
 });
 
@@ -76,16 +84,32 @@ app.get('/api/status', (req, res) => {
 
 
 
-const server = app.listen(PORT, '0.0.0.0');
+function startServer(port) {
+  const server = app.listen(port, '0.0.0.0');
 
-server.on('listening', () => {
-  console.log(`Server running at http://0.0.0.0:${PORT}`);
-});
-  
-server.on('error', (error) => {
-  console.error(`Unable to start server on 127.0.0.1:${PORT}: ${error.message}`);
-  process.exitCode = 1;
-});
+  server.on('listening', () => {
+    const address = server.address();
+    const actualPort = typeof address === 'string' ? address : address.port;
+    console.log(`Server running at http://0.0.0.0:${actualPort}`);
+  });
+
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE' && port !== 0) {
+      console.warn(`Port ${port} is already in use, trying ${port + 1}...`);
+      if (server.listening) {
+        server.close(() => startServer(port + 1));
+      } else {
+        startServer(port + 1);
+      }
+      return;
+    }
+
+    console.error(`Unable to start server on 127.0.0.1:${port}: ${error.message}`);
+    process.exitCode = 1;
+  });
+}
+
+startServer(PORT);
 
 
 

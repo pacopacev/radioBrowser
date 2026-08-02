@@ -1,0 +1,30 @@
+:root {
+  --player-border: #86efac3b;
+  --plyr-color-main: #22c55e;
+  --plyr-audio-controls-border-color: #86efac3b;
+  --plyr-audio-controls-background: transparent;
+  --plyr-audio-progress-buffered-color: #16b96d;
+  --plyr-audio-progress-filled-color: #22c55e;
+  --plyr-control-icon-size: 17px;
+}
+
+.plyr--audio {
+  border: 2px solid var(--player-border) !important;
+  background: rgba(2, 12, 7, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 14px !important;
+  padding: 10px !important;
+}
+
+.plyr__controls {
+  background: transparent !important;
+  border-top: 1px solid var(--player-border) !important;
+}
+
+.plyr__progress input[type=range]::-webkit-slider-thumb {
+  background: var(--plyr-color-main) !important;
+}
+
+.plyr__volume input[type=range]::-webkit-slider-thumb {
+  background: var(--plyr-color-main) !important;
+}
