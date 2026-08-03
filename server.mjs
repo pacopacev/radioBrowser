@@ -9,12 +9,14 @@ import getByGenre from './backend/genre.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(express.json());
+app.use(express.json());  
+app.use('/node_modules', express.static('node_modules'));
 
 
 // Serve static files from /public and /static
 app.use(express.static(join(process.cwd(), 'public')));
 app.use('/static', express.static(join(process.cwd(), 'static')));
+
 
 
 
@@ -105,7 +107,7 @@ function startServer(port) {
     }
 
     console.error(`Unable to start server on 127.0.0.1:${port}: ${error.message}`);
-    process.exitCode = 1;
+    process.exit(1);
   });
 }
 

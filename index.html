@@ -8,11 +8,11 @@
   <title>DDR</title>
   <link rel="icon" href="/static/Distressed Metal Chevron with Chains.png" />
   <link rel="manifest" href="/manifest.json" />
-
-  <script type="module" src="/player.js"></script>
-  <script type="module" src="/genre_list.js"></script>
+  <link rel="stylesheet" href="/static/plyr.css" />
 
 
+  
+<script type="module" src="/bundle.js"></script>
 
   <style>
     * {
@@ -231,7 +231,7 @@
       <!-- <span>⚡</span> running on <span href="https://kqm3339npudw-production-nsqqfh44.europe-west1.suga.run/" target="_blank" rel="noopener noreferrer">https://kqm3339npudw-production-nsqqfh44.europe-west1.suga.run/</span> -->
     </div>
   </div>
-  <script type="module" src="/app.js"></script>
+  <!-- <script type="module" src="/app.js"></script> -->
 
   <script>
     const radioOtionsServer = document.getElementById('radio-options-server');
@@ -297,13 +297,16 @@
           return;
         }
 
+        playerInstance.pause();
         const streamUrl = url.startsWith('http://') && window.location.protocol === 'https:'
           ? url.replace('http://', 'https://')
           : url;
 
-        playerInstance.pause();
-        playerInstance.src = streamUrl;
-        playerInstance.load();
+        playerInstance.source = {
+          type: 'audio',
+          title: 'Radio station',
+          sources: [{ src: streamUrl, type: 'audio/mpeg' }],
+        };
 
         const playPromise = playerInstance.play();
         if (playPromise && typeof playPromise.catch === 'function') {
