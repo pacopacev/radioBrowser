@@ -24,7 +24,7 @@
 
 .plyr__controls {
   background: transparent !important;
-  border-top: 1px solid var(--player-border) !important;
+  /* border-top: 1px solid var(--player-border) !important; */
   padding-top: 10px !important;
 }
 

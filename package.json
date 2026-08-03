@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "esbuild static/main.js --bundle --outfile=public/bundle.js --format=esm"
+    "build": "npx esbuild static/main.js --bundle --outfile=public/bundle.js --format=esm"
   },
   "keywords": [
 
