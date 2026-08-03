@@ -1,6 +1,6 @@
 {
-  "name": "My PWA",
-  "short_name": "PWA",
+  "name": "Drop Down Radio",
+  "short_name": "DDR",
   "id": "/",
   "start_url": "/",
   "scope": "/",
