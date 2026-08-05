@@ -340,6 +340,28 @@
     }
   </script>
 
+  <!-- <script>
+    function myFunction(x, card) {
+      console.log("Media query state changed");
+      if (x.matches) { // If media query matches
+        console.log("Media query matches");
+        card.style.backgroundColor = "lightblue";
+      } else {
+        console.log("Media query not matches");
+        card.style.backgroundColor = "red";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var x = window.matchMedia("(max-width: 700px)");
+      const card = document.querySelector('.card');
+      myFunction(x, card); // Call listener function at run time
+      x.addEventListener("change", function () {
+        myFunction(x, card);
+      });
+    });
+  </script> -->
+
 
 </body>
 
